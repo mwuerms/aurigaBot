@@ -1,7 +1,7 @@
 /**
- * Martin Würms
+ * Martin Wrms
  * 19.05.12
- * PicoBot
+ * aurigaBot
  * Rad
  */
 include<parameters.scad>;

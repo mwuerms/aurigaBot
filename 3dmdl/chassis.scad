@@ -1,12 +1,13 @@
 /**
- * Martin Würms
+ * Martin Wrms
  * 19.05.12
- * PicoBot
+ * aurigaBot
  * chassis
  */
 include<parameters.scad>;
 include<rad.scad>;
 include<motor.scad>;
+include<pcb.scad>;
 
 module motorholder() {
 	union() {
@@ -82,6 +83,9 @@ module chassis() {
 }
 
 chassis();
+
+translate([0, 0, 4])
+pcb();
 
 translate([10, 0, 0])
 rad(1);

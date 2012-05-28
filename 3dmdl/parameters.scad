@@ -1,7 +1,7 @@
 /**
- * Martin Würms
+ * Martin Wrms
  * 19.05.12
- * PicoBot
+ * aurigaBot
  * Parameter
  */
 res = 30;	// global resolution
