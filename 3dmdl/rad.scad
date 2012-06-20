@@ -6,15 +6,16 @@
  */
 include<parameters.scad>;
 
-pneu_r1 = 9.0;
+pneu_r1 = 10.0;
 pneu_r2 = 2.0;
 
 module pneu() {
 	union(){
+		color("Black")
 		rotate([0,90,0]) 
-	   rotate_extrude()
+	   	rotate_extrude()
   		translate([pneu_r1,0,0])
-	   circle(r=pneu_r2-1, $fn=res);		
+	   	circle(r=pneu_r2-1, $fn=res);		
 	}
 }
 
@@ -72,28 +73,24 @@ module rad(all) {
 		union(){
 			rotate([0, 90, 0])
 			rotate_extrude($fn=res) 
-			polygon(points=[[2.55,-1], [3.5,-1], [3.5,-0.5], [8, -0.5], [8, -1], [9, -1], [9, -0.5], [8.5, 0], [9, 	0.5], [9, 1], [8, 1], [8, 0.5], [3.5,0.5], [3.5, 1], [2.55,1]]);
+			polygon(points=[[0,-2], [2.5,-2], [2.5,-0.5],[10, -0.5], [9.5, 0], [10, 0.5], [2.5,0.5], [2.5, 1], [0,1]]);
 		}
-
+		// Achse
 		rotate(a=[0,90,0])
-		translate([0,5.75,-1.5])
-		cylinder(h=3, r=2, $fn=res);
+		translate([0,0,-3.5])
+		cylinder(h=6, r=1.2, $fn=res);
 
-		rotate(a=[0,90,0])
-		translate([5.75,0,-1.5])
-		cylinder(h=3, r=2, $fn=res);
-
-		rotate(a=[0,90,0])
-		translate([0,-5.75,-1.5])
-		cylinder(h=3, r=2, $fn=res);
-
-		rotate(a=[0,90,0])
-		translate([-5.75,0,-1.5])
-		cylinder(h=3, r=2, $fn=res);
+		// Aussparungen
+		for(i=[0:5]) {
+			// i*60°
+			rotate(a=[0,90,0])
+			translate([5.75*sin(i*60),5.75*cos(i*60),-1.5])
+			cylinder(h=3, r=2.4, $fn=res);
+		}
 	}
 if(all > 0) {
 		pneu();
-		bearing();
+//		bearing();
 		screw();
 	}
 }
