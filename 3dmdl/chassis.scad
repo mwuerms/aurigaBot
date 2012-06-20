@@ -81,7 +81,6 @@ chassis();
 /*
 translate([0, 0, 4])
 pcb();
-*/
 
 translate([11.25, 0, 0])
 rad();
@@ -89,7 +88,6 @@ translate([-11.25, 0, 0])
 rotate([0,0,180])
 rad();
 
-/*
 translate([10, 0, 12])
 motor();
 translate([-10, 0, 12])

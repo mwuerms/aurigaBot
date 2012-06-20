@@ -4,4 +4,4 @@
  * aurigaBot
  * Parameter
  */
-res = 30;	// global resolution
+res = 40;	// global resolution
