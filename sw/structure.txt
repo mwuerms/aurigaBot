@@ -1,0 +1,17 @@
+structure of software
+This project is using freeRTOS, therefore it uses the same folder structure as
+freeRTOS does. The project uses msp430-gcc toolchain.
+
+sw
+ |
+ +- app             application code
+ |   |
+ |   +- common      common files provided by freeRTOS
+ |   |                RTOS functions (queues, ...)
+ |   |
+ |   +- aurigaBot   sourcecode of aurigaBot
+ |
+ +- source          sourcefiles provided from freeRTOS
+ |
+ +- license         freeRTOS license
+     
