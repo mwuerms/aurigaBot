@@ -94,5 +94,3 @@ if(all > 0) {
 		screw();
 	}
 }
-
-rad();
