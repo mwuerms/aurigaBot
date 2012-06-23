@@ -288,16 +288,16 @@ void vPortYield( void )
 static void prvSetupTimerInterrupt( void )
 {
 	/* Run the timer of the ACLK, stop, clear*/
-	TA0CTL = TASSEL_1|TACLR;
+	TA1CTL = TASSEL_1|TACLR;
 
 	/* Set the compare match value according to the tick rate we want. */
-	TA0CCR0 = portACLK_FREQUENCY_HZ / configTICK_RATE_HZ;
+	TA1CCR0 = portACLK_FREQUENCY_HZ / configTICK_RATE_HZ;
 
 	/* Enable the interrupts. */
-	TA0CCTL0 = CCIE;
+	TA1CCTL0 = CCIE;
 
 	/* Up mode. */
-	TA0CTL |= MC_1;
+	TA1CTL |= MC_1;
 }
 /*-----------------------------------------------------------*/
 
@@ -313,8 +313,8 @@ static void prvSetupTimerInterrupt( void )
 	 * the context is saved at the start of vPortYieldFromTick().  The tick
 	 * count is incremented after the context is saved.
 	 */
-	interrupt (TIMER0_A0_VECTOR) prvTickISR( void ) __attribute__ ( ( naked ) );
-	interrupt (TIMER0_A0_VECTOR) prvTickISR( void )
+	interrupt (TIMER1_A0_VECTOR) prvTickISR( void ) __attribute__ ( ( naked ) );
+	interrupt (TIMER1_A0_VECTOR) prvTickISR( void )
 	{
 		/* Save the context of the interrupted task. */
 		portSAVE_CONTEXT();
@@ -335,8 +335,8 @@ static void prvSetupTimerInterrupt( void )
 	 * tick count.  We don't need to switch context, this can only be done by
 	 * manual calls to taskYIELD();
 	 */
-	interrupt (TIMER0_A0_VECTOR) prvTickISR( void );
-	interrupt (TIMER0_A0_VECTOR) prvTickISR( void )
+	interrupt (TIMER1_A0_VECTOR) prvTickISR( void );
+	interrupt (TIMER1_A0_VECTOR) prvTickISR( void )
 	{
 		vTaskIncrementTick();
 	}
