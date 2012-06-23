@@ -86,11 +86,7 @@
 #include "task.h"
 
 /* Demo application includes. */
-#include "partest.h"
-#include "flash.h"
 #include "integer.h"
-#include "comtest2.h"
-#include "PollQ.h"
 
 /* Constants required for hardware setup. */
 #define mainALL_BITS_OUTPUT		( ( unsigned char ) 0xff )
@@ -148,13 +144,9 @@ int main( void )
 {
 	/* Setup the hardware ready for the demo. */
 	prvSetupHardware();
-	vParTestInitialise();
 
 	/* Start the standard demo application tasks. */
-	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );
 	vStartIntegerMathTasks( tskIDLE_PRIORITY );
-	vAltStartComTestTasks( mainCOM_TEST_PRIORITY, mainCOM_TEST_BAUD_RATE, mainCOM_TEST_LED - 1 );
-	vStartPolledQueueTasks( mainQUEUE_POLL_PRIORITY );
 
 	/* Start the 'Check' task which is defined in this file. */
 	xTaskCreate( vErrorChecks, "Check", configMINIMAL_STACK_SIZE, NULL, mainCHECK_TASK_PRIORITY, NULL );	
@@ -198,9 +190,6 @@ portTickType xDelayPeriod = mainNO_ERROR_CHECK_DELAY;
 			LED toggle. */
 			xDelayPeriod = mainERROR_CHECK_DELAY;
 		}
-
-		/* Flash! */
-		vParTestToggleLED( mainCHECK_LED );
 	}
 }
 /*-----------------------------------------------------------*/
@@ -222,16 +211,6 @@ static unsigned long ulLastIdleLoops = 0UL;
 		sNoErrorFound = pdFALSE;
 	}
 
-	if( xAreComTestTasksStillRunning() != pdTRUE )
-	{
-		sNoErrorFound = pdFALSE;
-	}
-	
-	if( xArePollingQueuesStillRunning() != pdTRUE )
-	{
-		sNoErrorFound = pdFALSE;
-	}
-
 	if( ulLastIdleLoops == ulIdleLoops )
 	{
 		sNoErrorFound = pdFALSE;
@@ -249,13 +228,13 @@ static void prvSetupHardware( void )
 	WDTCTL = WDTPW + WDTHOLD;
 
 	/* Setup DCO+ for ( xtal * D * (N + 1) ) operation. */
-	FLL_CTL0 |= DCOPLUS + XCAP18PF; 
+	//FLL_CTL0 |= DCOPLUS + XCAP18PF; 
 
 	/* X2 DCO frequency, 8MHz nominal DCO */
-	SCFI0 |= FN_4;                  
+	//SCFI0 |= FN_4;                  
 
 	/* (121+1) x 32768 x 2 = 7.99 Mhz */
-	SCFQCTL = mainMAX_FREQUENCY;
+	//SCFQCTL = mainMAX_FREQUENCY;
 
 	/* Setup the IO as per the SoftBaugh demo for the same target hardware. */
 	P1SEL = 0x32;

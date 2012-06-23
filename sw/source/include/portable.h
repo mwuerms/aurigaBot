@@ -119,8 +119,7 @@
 #endif
 	
 #ifdef GCC_MSP430
-//	#include "../../Source/portable/GCC/MSP430F449/portmacro.h"
-	#include "../../source/portable/mspgcc/msp430f449/portmacro.h"
+	#include "../../source/portable/mspgcc/msp430f5x/portmacro.h"
 #endif
 
 #ifdef ROWLEY_MSP430

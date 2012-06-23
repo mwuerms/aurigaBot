@@ -56,13 +56,13 @@ CC=msp430-gcc
 OBJCOPY=msp430-objcopy
 DEBUG=-g
 OPT=-Os
-MCU=msp430x449
+MCU=msp430f5342
 WARNINGS=-Wall -Wshadow -Wpointer-arith -Wbad-function-cast -Wcast-align -Wsign-compare \
 		-Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wunused
 
 # Setup paths to source code
 SOURCE_PATH = ../../source
-PORT_PATH = $(SOURCE_PATH)/portable/mspgcc/msp430f449
+PORT_PATH = $(SOURCE_PATH)/portable/mspgcc/msp430f5x
 COMMON_PATH = ../common
 APP_PATH = $(COMMON_PATH)/minimal
 
@@ -73,17 +73,12 @@ CFLAGS=-mmcu=$(MCU) $(OPT) $(DEBUG) -I. -I$(SOURCE_PATH)/include -I$(COMMON_PATH
 #
 SRC = \
 main.c \
-ParTest/ParTest.c \
-serial/serial.c \
 $(SOURCE_PATH)/tasks.c \
 $(SOURCE_PATH)/list.c \
 $(SOURCE_PATH)/queue.c \
 $(SOURCE_PATH)/portable/memmang/heap_1.c \
 $(PORT_PATH)/port.c \
-$(APP_PATH)/flash.c \
 $(APP_PATH)/integer.c \
-$(APP_PATH)/comtest.c \
-$(APP_PATH)/PollQ.c
 
 #
 # Define all object files.
