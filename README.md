@@ -18,6 +18,9 @@ openSCAD Version 2012.02.22
 
 msp430-gcc 4.5.3
   programming MSP430F534x on aurigaBot
+  makefile from mspgcc requires packages:
+    srecord
+    dos2unix
 
 FreeRTOS V7.1.0
   free Real Time Operating Ssystem, http://http://www.freertos.org
