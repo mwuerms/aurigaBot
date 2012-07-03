@@ -30,15 +30,15 @@ module motorholder() {
 
 module chassis() {
 	union() {
-		translate([10, 0, 11.5])
+		translate([11, 0, 11.5])
 		motorholder();
-		translate([-10, 0, 11.5])
+		translate([-11, 0, 11.5])
 		rotate([0,0,180])
 		motorholder();
 		difference() {
 			union() {
-				translate([-9,-3,-3])
-				cube([18,6,9]);
+				translate([-10,-3,-3])
+				cube([20,6,9]);
 			}
 			translate([-12, 0, 0])
 			rotate([0,90,0])
@@ -47,49 +47,27 @@ module chassis() {
 			translate([0, 0, 1])
 			cylinder(h=12, r=0.8, $fn=res, center=true);
 
-			translate([5.5, 0, 1])
+			translate([6.5, 0, 1])
 			cylinder(h=12, r=0.8, $fn=res, center=true);
 
-			translate([-5.5, 0, 1])
+			translate([-6.5, 0, 1])
 			cylinder(h=12, r=0.8, $fn=res, center=true);
 
 			translate([0,0,-1])
 			cube([6, 8, 7], center=true);
 		}
-		translate([7,-3,6])
+		translate([8,-3,6])
 		cube([2,6,5.5]);
 
-		translate([-9,-3,6])
+		translate([-10,-3,6])
 		cube([2,6,5.5]);
 
-		translate([5,-3,6])
+		translate([6,-3,6])
 		cube([2,1.5,12.5]);
 
-		translate([5,1.5,6])
-		cube([2,1.5,12.5]);
-
-		translate([-7,-3,6])
-		cube([2,1.5,12.5]);
-
-		translate([-7,1.5,6])
+		translate([-8,-3,6])
 		cube([2,1.5,12.5]);
 	}
 }
 
 chassis();
-
-/*
-translate([0, 0, 4])
-pcb();
-
-translate([11.25, 0, 0])
-rad();
-translate([-11.25, 0, 0])
-rotate([0,0,180])
-rad();
-
-translate([10, 0, 12])
-motor();
-translate([-10, 0, 12])
-motor();
-*/
