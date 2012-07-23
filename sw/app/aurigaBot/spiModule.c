@@ -7,6 +7,10 @@
 
 #include "appGlobal.h"
 
+/* - Markos --------------------------------- */
+#define CSHigh()	(*mod_set->csport) |=  mod_set->cspin
+#define CSLow()		(*mod_set->csport) &= ~mod_set->cspin
+
 /**
  * initialize all modules depending on init struct
  * @param	pointer to init struct
@@ -24,13 +28,17 @@ static void _initModule(struct spi_module_init_t* mod_set) {
 		mod_set->module = SPI_MODULE_UCB0;
 		UCB0CTL1 = UCSWRST;
 		// Pins
-		P3SEL = 7;
-		//GYSPISel();
-		GYCSHigh();
+		GYSPISel();
 		GYCSOut();
 
 		// Module
 		mod_set->status = (uint8_t*)UCB0STAT;
+		mod_set->txbuf  = (uint8_t*)UCB0TXBUF;
+		mod_set->rxbuf  = (uint8_t*)UCB0RXBUF;
+		mod_set->csport = (uint8_t*)P2DIR;
+		mod_set->cspin  = p2_GYCS;
+		CSHigh();
+
 		UCB0BRW = mod_set->baudrate;
 		UCB0CTL0 = mod_set->ctl0;
 		UCB0CTL1 = mod_set->ctl1;
