@@ -30,10 +30,10 @@
 /* - PORT2 ------------------ */
 #define p2_GYCS		BIT7
 
-#define GYCSIn()	(P2DIR	&= ~p2_GYCS)
-#define GYCSOut()	(P2DIR	|=  p2_GYCS)
-#define GYCSLow()	(P2OUT	&= ~p2_GYCS)
-#define GYCSHigh()	(P2OUT	|=  p2_GYCS)
+#define GYCSIn()	(P2DIR &= ~p2_GYCS)
+#define GYCSOut()	(P2DIR |=  p2_GYCS)
+#define GYCSLow()	(P2OUT &= ~p2_GYCS)
+#define GYCSHigh()	(P2OUT |=  p2_GYCS)
 
 /* - PORT3 ------------------ */
 // UCB0
@@ -55,6 +55,7 @@
 #define p4_6		BIT6
 #define p4_IRREC	BIT7
 
+#define ADCSOut()	(P4DIR |=  p4_ADCS)
 #define ADSPISel()	(P4SEL |= (p4_ADMOSI|p4_ADMISO|p4_ADSCLK))
 
 /* - PORT1 ------------------ */
@@ -71,6 +72,5 @@
 
 #define LED2Off()	P5OUT |=  (p5_LED2)
 #define LED2On()	P5OUT &= ~(p5_LED2)
-
 
 #endif /* _IO_H_ */

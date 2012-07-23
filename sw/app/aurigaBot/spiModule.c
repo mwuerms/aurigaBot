@@ -18,9 +18,23 @@
 static void _initModule(struct spi_module_init_t* mod_set) {
 	switch(mod_set->target) {
 	case SPI_TARGET_ACCEL:
+		mod_set->module = SPI_MODULE_UCB1;
+		UCB1CTL1 = UCSWRST;
 		// Pins
-;
+		ADSPISel();
+		ADCSOut();
+
 		// Module
+		mod_set->status = (uint8_t*)UCB1STAT;
+		mod_set->txbuf  = (uint8_t*)UCB1TXBUF;
+		mod_set->rxbuf  = (uint8_t*)UCB1RXBUF;
+		mod_set->csport = (uint8_t*)P4DIR;
+		mod_set->cspin  = p4_ADCS;
+		CSHigh();
+
+		UCB1BRW = mod_set->baudrate;
+		UCB1CTL0 = mod_set->ctl0;
+		UCB1CTL1 = mod_set->ctl1;
 		break;
 
 	case SPI_TARGET_GYRO:
@@ -42,7 +56,6 @@ static void _initModule(struct spi_module_init_t* mod_set) {
 		UCB0BRW = mod_set->baudrate;
 		UCB0CTL0 = mod_set->ctl0;
 		UCB0CTL1 = mod_set->ctl1;
-		break;
 	}
 }
 
