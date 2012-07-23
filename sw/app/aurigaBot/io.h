@@ -45,16 +45,32 @@
 
 #define GYSPISel()	(P3SEL |= (p3_GYMOSI|p3_GYMISO|p3_GYSCLK))
 
-/* - PORT1 ------------------ * /
-#define p3	_BIT1
-#define p3	_BIT2
-#define p3	_BIT3
-#define p3	_BIT4
+/* - PORT4 ------------------ */
+#define p4_ADCS		BIT0
+#define p4_ADMOSI	BIT1
+#define p4_ADMISO	BIT2
+#define p4_ADSCLK	BIT3
+#define p4_TXD		BIT4
+#define p4_RXD		BIT5
+#define p4_6		BIT6
+#define p4_IRREC	BIT7
 
-/ * - PORT1 ------------------ * /
-#define p3	_BIT1
-#define p3	_BIT2
-#define p3	_BIT3
-#define p3	_BIT4
-*/
+#define ADSPISel()	(P4SEL |= (p4_ADMOSI|p4_ADMISO|p4_ADSCLK))
+
+/* - PORT1 ------------------ */
+#define p5_LED2		BIT1
+#define p5_LED1		BIT7
+
+#define LEDsOut	()	P5DIR |=  (p5_LED1|p5_LED2)
+#define LEDsIn()	P5DIR &= ~(p5_LED1|p5_LED2)
+#define LEDsOff()	P5OUT |=  (p5_LED1|p5_LED2)
+#define LEDsOn()	P5OUT &= ~(p5_LED1|p5_LED2)
+
+#define LED1Off()	P5OUT |=  (p5_LED1)
+#define LED1On()	P5OUT &= ~(p5_LED1)
+
+#define LED2Off()	P5OUT |=  (p5_LED2)
+#define LED2On()	P5OUT &= ~(p5_LED2)
+
+
 #endif /* _IO_H_ */
