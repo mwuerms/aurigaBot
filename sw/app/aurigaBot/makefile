@@ -78,12 +78,12 @@ APP_PATH = $(COMMON_PATH)/minimal
 # eg if you have a source file foo.c then list it here
 SOURCES = \
 main.c \
+spiModule.c \
 $(SOURCE_PATH)/tasks.c \
 $(SOURCE_PATH)/list.c \
 $(SOURCE_PATH)/queue.c \
 $(SOURCE_PATH)/portable/memmang/heap_1.c \
 $(PORT_PATH)/port.c \
-$(APP_PATH)/integer.c \
 
 # Include are located in the Include directory
 INCLUDES = -I. -I$(SOURCE_PATH)/include -I$(COMMON_PATH)/include
