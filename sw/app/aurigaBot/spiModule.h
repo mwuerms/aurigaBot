@@ -9,13 +9,7 @@
 #define _SPIMODULE_H_
 
 /* - Includes -------------------------------- */
-/* Standard includes. */
-#include <stdlib.h>
-#include <signal.h>
-
-/* Scheduler includes. */
-#include "FreeRTOS.h"
-#include "task.h"
+#include "appGlobal.h"
 
 /* - Defines -------------------------------- */
 #define SPI_TARGET_GYRO		1
@@ -26,18 +20,16 @@
 #define SPI_MODULE_UCB0		3
 #define SPI_MODULE_UCB1		4
 
-#define SPI_SPEED_SMCLK		1
-
-#define SPI_ROLE_MASTER		1
-
 /* - Markos --------------------------------- */
 
 /* - Typedefs ------------------------------- */
 struct spi_module_init_t {
-	uint8_t target;
-	uint8_t module;
-	uint8_t	speed;
-	uint8_t role;
+	uint16_t	baudrate;
+	uint8_t*	status;
+	uint8_t 	target;
+	uint8_t 	module;
+	uint8_t 	ctl0;
+	uint8_t 	ctl1;
 };
 
 /* - Variables ------------------------------ */
@@ -46,23 +38,3 @@ struct spi_module_init_t {
 void vSpiModule(void *pvParameters);
 
 #endif /* _SPIMODULE_H_ */
-
-
-/* - Includes -------------------------------- */
-/* Standard includes. * /
-#include <stdlib.h>
-#include <signal.h>
-
-/ * Scheduler includes. * /
-#include "FreeRTOS.h"
-#include "task.h"
-*/
-/* - Defines -------------------------------- */
-
-/* - Markos --------------------------------- */
-
-/* - Typedefs ------------------------------- */
-
-/* - Variables ------------------------------ */
-
-/* - Functions ------------------------------ */

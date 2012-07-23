@@ -5,63 +5,89 @@
  *      Author: martin
  */
 
-/* Standard includes. */
-#include <stdlib.h>
-#include <signal.h>
-
-/* Scheduler includes. */
-#include "FreeRTOS.h"
-#include "task.h"
-
-#include "spiModule.h"
-#include "io.h"
+#include "appGlobal.h"
 
 /**
  * initialize all modules depending on init struct
  * @param	pointer to init struct
  */
-static void _initModule(struct spi_module_init_t* mod_init) {
-	switch(mod_init->module) {
-	case SPI_MODULE_UCA0:
+static void _initModule(struct spi_module_init_t* mod_set) {
+	switch(mod_set->target) {
+	case SPI_TARGET_ACCEL:
 		// Pins
+;
 		// Module
 		break;
 
-	case SPI_MODULE_UCA1:
-		// Pins
-		// Module
-		break;
-
-	case SPI_MODULE_UCB0:
-		// Pins
-
-		// Module
-		break;
-
-	case SPI_MODULE_UCB1:
+	case SPI_TARGET_GYRO:
 	default:
-			// Pins
-			// Module
-			break;
+		mod_set->module = SPI_MODULE_UCB0;
+		UCB0CTL1 = UCSWRST;
+		// Pins
+		P3SEL = 7;
+		//GYSPISel();
+		GYCSHigh();
+		GYCSOut();
+
+		// Module
+		mod_set->status = (uint8_t*)UCB0STAT;
+		UCB0BRW = mod_set->baudrate;
+		UCB0CTL0 = mod_set->ctl0;
+		UCB0CTL1 = mod_set->ctl1;
+		break;
 	}
 }
 
+/**
+ * assert CS of module
+ * = set cs low
+ * @param	module number
+ */
+static void _assertCS(uint8_t target)
+{
+	if(target == SPI_TARGET_GYRO) {
+		GYCSLow();
+		return;
+	}
+	// if(target == SPI_TARGET_ACCEL)
+//		ADCSLow();
+}
+
+/**
+ * deassert CS of module
+ * = set cs high
+ * @param	module number
+ */
+static void _deassertCS(uint8_t target)
+{
+	if(target == SPI_TARGET_GYRO) {
+		GYCSHigh();
+		return;
+	}
+	// if(target == SPI_TARGET_ACCEL)
+//		ADCSHigh();
+}
 /**
  * spi module
  * func for task
  * give pointer to init struct on task creation
  * @param	(struct spi_module_init_t*)
  */
-void vSpiModule( void *pvParameters )
+void vSpiModule(void *pvParameters)
 {
-	struct spi_module_init_t mod_setting;
-	mod_setting.target 	= ((struct spi_module_init_t*)(pvParameters))->target;
-	mod_setting.module 	= ((struct spi_module_init_t*)(pvParameters))->module;
-	mod_setting.speed 	= ((struct spi_module_init_t*)(pvParameters))->speed;
-	mod_setting.role	= ((struct spi_module_init_t*)(pvParameters))->role;
-	// initialize SPI Module
-	_initModule(&mod_setting);
+	struct spi_module_init_t module;
 
+	// copy settings
+	module.target 	= ((struct spi_module_init_t*)(pvParameters))->target;
+	module.module 	= ((struct spi_module_init_t*)(pvParameters))->module;
+	module.ctl0 	= ((struct spi_module_init_t*)(pvParameters))->ctl0;
+	module.ctl1	= ((struct spi_module_init_t*)(pvParameters))->ctl1;
+
+	// initialize SPI Module
+	_initModule(&module);
+
+	_assertCS(module.target);
+	_deassertCS(module.target);
 	while(1) {
 		;
 	}

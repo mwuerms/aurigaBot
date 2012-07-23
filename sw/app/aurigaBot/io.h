@@ -10,6 +10,8 @@
 #ifndef _IO_H_
 #define _IO_H_
 
+#include "msp430f5342.h"
+
 /* - direction - */
 #define DIR_OUTPUT	1	// =1: output
 #define DIR_INPUT	0	// =0: input
@@ -30,23 +32,29 @@
 
 #define GYCSIn()	(P2DIR	&= ~p2_GYCS)
 #define GYCSOut()	(P2DIR	|=  p2_GYCS)
-#define GYCSClr()	(P2OUT	&= ~p2_GYCS)
-#define GYCSSet()	(P2OUT	|=  p2_GYCS)
+#define GYCSLow()	(P2OUT	&= ~p2_GYCS)
+#define GYCSHigh()	(P2OUT	|=  p2_GYCS)
 
 /* - PORT3 ------------------ */
+// UCB0
 #define p3_GYMOSI	BIT0
 #define p3_GYMISO	BIT1
 #define p3_GYSCLK	BIT2
+#define p3_3		BIT3
+#define p3_4		BIT4
 
-/* - PORT1 ------------------ */
+#define GYSPISel()	(P3SEL |= (p3_GYMOSI|p3_GYMISO|p3_GYSCLK))
+
+/* - PORT1 ------------------ * /
 #define p3	_BIT1
 #define p3	_BIT2
 #define p3	_BIT3
 #define p3	_BIT4
 
-/* - PORT1 ------------------ */
+/ * - PORT1 ------------------ * /
 #define p3	_BIT1
 #define p3	_BIT2
 #define p3	_BIT3
 #define p3	_BIT4
+*/
 #endif /* _IO_H_ */

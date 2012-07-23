@@ -77,16 +77,7 @@
  * http://www.FreeRTOS.org.
  */
 
-/* Standard includes. */
-#include <stdlib.h>
-#include <signal.h>
-
-/* Scheduler includes. */
-#include "FreeRTOS.h"
-#include "task.h"
-
-/* application includes. */
-#include "spiModule.h"
+#include "appGlobal.h"
 
 /* Constants required for hardware setup. */
 #define mainALL_BITS_OUTPUT		( ( unsigned char ) 0xff )
@@ -144,9 +135,9 @@ int main( void )
 {
 	struct spi_module_init_t spi_init = {
 			.target = SPI_TARGET_GYRO,
-			.module	= SPI_MODULE_UCB0,
-			.speed 	= SPI_SPEED_SMCLK,
-			.role 	= SPI_ROLE_MASTER
+			.baudrate 	= 1,
+			.ctl0	= (UCMSB),
+			.ctl1	= 1,
 	};
 	/* Setup the hardware ready for the demo. */
 	prvSetupHardware();
