@@ -21,6 +21,7 @@
 /* Scheduler includes. */
 #include "FreeRTOS.h"
 #include "task.h"
+#include "queue.h"
 
 #include "spiModule.h"
 #include "io.h"

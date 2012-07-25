@@ -60,35 +60,6 @@ static void _initModule(struct spi_module_init_t* mod_set) {
 }
 
 /**
- * assert CS of module
- * = set cs low
- * @param	module number
- */
-static void _assertCS(uint8_t target)
-{
-	if(target == SPI_TARGET_GYRO) {
-		GYCSLow();
-		return;
-	}
-	// if(target == SPI_TARGET_ACCEL)
-//		ADCSLow();
-}
-
-/**
- * deassert CS of module
- * = set cs high
- * @param	module number
- */
-static void _deassertCS(uint8_t target)
-{
-	if(target == SPI_TARGET_GYRO) {
-		GYCSHigh();
-		return;
-	}
-	// if(target == SPI_TARGET_ACCEL)
-//		ADCSHigh();
-}
-/**
  * spi module
  * func for task
  * give pointer to init struct on task creation
@@ -96,20 +67,28 @@ static void _deassertCS(uint8_t target)
  */
 void vSpiModule(void *pvParameters)
 {
-	struct spi_module_init_t module;
+	struct spi_module_init_t	module;
+	struct spi_data_t*			data;
 
-	// copy settings
+	// local copy
 	module.target 	= ((struct spi_module_init_t*)(pvParameters))->target;
 	module.module 	= ((struct spi_module_init_t*)(pvParameters))->module;
 	module.ctl0 	= ((struct spi_module_init_t*)(pvParameters))->ctl0;
-	module.ctl1	= ((struct spi_module_init_t*)(pvParameters))->ctl1;
+	module.ctl1		= ((struct spi_module_init_t*)(pvParameters))->ctl1;
+	module.queue	= ((struct spi_module_init_t*)(pvParameters))->queue;
 
 	// initialize SPI Module
 	_initModule(&module);
 
-	_assertCS(module.target);
-	_deassertCS(module.target);
 	while(1) {
-		;
+		// wait until there is something in the queue
+		if(xQueueReceive((xQueueHandle) module.queue, (void*)(data), 10)) {
+		if(data->ctrl & fSPI_DIR_WR)
+
+
+		// give answer
+		data->ctrl |= fSPI_DONE;
+
+		}
 	}
 }

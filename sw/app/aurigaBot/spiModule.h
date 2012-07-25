@@ -23,18 +23,30 @@
 /* - Markos --------------------------------- */
 
 /* - Typedefs ------------------------------- */
+// init spi module
 struct spi_module_init_t {
-	uint16_t	baudrate;
+	void*		queue;
 	uint8_t*	status;
 	uint8_t*	txbuf;
 	uint8_t*	rxbuf;
 	uint8_t*	csport;
+	uint16_t	baudrate;
 	uint8_t		cspin;
 	uint8_t 	target;
 	uint8_t 	module;
 	uint8_t 	ctl0;
 	uint8_t 	ctl1;
 };
+
+// spi data
+struct spi_data_t {
+	uint16_t	ctrl;
+	uint8_t		length;
+	uint8_t* 	data;
+};
+#define fSPI_DIR_WR		BIT0	// =0: read, =1: write
+#define fSPI_DONE		BIT8
+#define fSPI_ERROR		BIT9
 
 /* - Variables ------------------------------ */
 

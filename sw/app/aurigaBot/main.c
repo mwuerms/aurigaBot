@@ -139,6 +139,9 @@ int main( void )
 			.ctl0	= (UCMSB),
 			.ctl1	= 1,
 	};
+
+	spi_init.queue = (void*)xQueueCreate(1, sizeof(struct spi_data_t ));
+
 	/* Setup the hardware ready for the demo. */
 	prvSetupHardware();
 
