@@ -133,7 +133,7 @@ static volatile unsigned long ulIdleLoops = 0UL;
  */
 int main( void )
 {
-	struct spi_module_init_t spi_init = {
+/*	struct spi_module_init_t spi_init = {
 			.target = SPI_TARGET_GYRO,
 			.baudrate 	= 1,
 			.ctl0	= (UCMSB),
@@ -141,7 +141,7 @@ int main( void )
 	};
 
 	spi_init.queue = (void*)xQueueCreate(1, sizeof(struct spi_data_t ));
-
+*/
 	/* Setup the hardware ready for the demo. */
 	prvSetupHardware();
 
@@ -149,7 +149,7 @@ int main( void )
 //	vStartIntegerMathTasks( tskIDLE_PRIORITY );
 
 	/* Start the 'SPI Module' task which is defined in this file. */
-	xTaskCreate( vSpiModule, "SPI UCB0", configMINIMAL_STACK_SIZE, (void*)(&spi_init), spiMODULE_TASK_PRIORITY, NULL );
+//	xTaskCreate( vSpiModule, "SPI UCB0", configMINIMAL_STACK_SIZE, (void*)(&spi_init), spiMODULE_TASK_PRIORITY, NULL );
 	/* Start the scheduler. */
 	vTaskStartScheduler();
 

@@ -23,7 +23,7 @@
 #include "task.h"
 #include "queue.h"
 
-#include "spiModule.h"
+#include "accel.h"
 #include "io.h"
 
 /* - Defines -------------------------------- */

@@ -57,6 +57,8 @@
 
 #define ADCSOut()	(P4DIR |=  p4_ADCS)
 #define ADSPISel()	(P4SEL |= (p4_ADMOSI|p4_ADMISO|p4_ADSCLK))
+#define ADCSLow()	(P4OUT &= ~p4_ADCS)
+#define ADCSHigh()	(P4OUT |=  p4_ADCS)
 
 /* - PORT1 ------------------ */
 #define p5_LED2		BIT1

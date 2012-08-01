@@ -1,20 +1,67 @@
 /*
- * spiModule.c
+ * accel.c
  *
  *  Created on: 23.07.2012
  *      Author: martin
+ *
+ * uses: UCB1, ISR
  */
-
 #include "appGlobal.h"
 
-/* - Markos --------------------------------- */
-#define CSHigh()	(*mod_set->csport) |=  mod_set->cspin
-#define CSLow()		(*mod_set->csport) &= ~mod_set->cspin
+volatile uint8_t*	accel_data;	// data pointer
+volatile uint8_t	accel_len;	// length counter
 
 /**
- * initialize all modules depending on init struct
- * @param	pointer to init struct
+ * initialize accel SPI module
  */
+void accelInit(void) {
+	// init spi
+	UCB1CTL1 = cACCEL_CTL1;
+	UCB1BRW  = cACCEL_BAUDRATE;
+	UCB1CTL0 = cACCEL_CTL0;
+	UCB1IE	 = 0;
+
+	// CS
+	ADSPISel();
+	ADCSOut();
+	ADCSHigh();
+
+	UCB1CTL1 &= ~UCSWRST;
+}
+
+/**
+ * write to accelerometer
+ */
+void accelWrite(uint8_t *data, uint8_t len) {
+	// vars
+	accel_data	= data;
+	accel_len	= len;
+
+	// if len < 2 answer with error in queue
+
+	// clear IFG
+	UCB1IFG  = 0;
+
+	// assert cs
+	ADCSLow();
+
+	// start
+	UCB1TXBUF = *accel_data;
+	accel_data++;
+	accel_len--;
+
+	// en IE
+	UCB1IE	 = UCTXIE;
+}
+
+/**
+ * read from accelerometer
+ */
+void accelRead(uint8_t *data, uint8_t len) {
+}
+
+
+/*
 static void _initModule(struct spi_module_init_t* mod_set) {
 	switch(mod_set->target) {
 	case SPI_TARGET_ACCEL:
@@ -58,13 +105,13 @@ static void _initModule(struct spi_module_init_t* mod_set) {
 		UCB0CTL1 = mod_set->ctl1;
 	}
 }
-
+/*
 /**
  * spi module
  * func for task
  * give pointer to init struct on task creation
  * @param	(struct spi_module_init_t*)
- */
+ * /
 void vSpiModule(void *pvParameters)
 {
 	struct spi_module_init_t	module;
@@ -92,3 +139,4 @@ void vSpiModule(void *pvParameters)
 		}
 	}
 }
+*/

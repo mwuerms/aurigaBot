@@ -78,7 +78,8 @@ APP_PATH = $(COMMON_PATH)/minimal
 # eg if you have a source file foo.c then list it here
 SOURCES = \
 main.c \
-spiModule.c \
+accel.c \
+gyro.c \
 $(SOURCE_PATH)/tasks.c \
 $(SOURCE_PATH)/list.c \
 $(SOURCE_PATH)/queue.c \
