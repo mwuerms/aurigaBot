@@ -4,7 +4,7 @@
  *  Created on: 23.07.2012
  *      Author: martin
  *
- * uses: UCB1, ISR
+ * uses: UCB0, ISR
  */
 #include "appGlobal.h"
 
@@ -14,7 +14,8 @@ volatile uint8_t	accel_len;	// length counter
 /**
  * initialize gyro SPI module
  */
-void gyroInit(void) {
+void gyroInit(void)
+{
 	// init spi
 	UCB0CTL1 = cACCEL_CTL1;
 	UCB0BRW  = cACCEL_BAUDRATE;
@@ -33,7 +34,8 @@ void gyroInit(void) {
 /**
  * write to gyro
  */
-void gyroWrite(uint8_t *data, uint8_t len) {
+void gyroWrite(uint8_t *data, uint8_t len)
+{
 	// vars
 	accel_data	= data;
 	accel_len	= len;
@@ -58,7 +60,14 @@ void gyroWrite(uint8_t *data, uint8_t len) {
 /**
  * read from gyro
  */
-void gyroRead(uint8_t *data, uint8_t len) {
+void gyroRead(uint8_t *data, uint8_t len)
+{
 }
 
-
+/**
+ * ISR to handle SPI communication with gyro using UCB0
+ */
+interrupt (USCI_B0_VECTOR) gyroISR(void)
+{
+    /* Any normal C code */
+}

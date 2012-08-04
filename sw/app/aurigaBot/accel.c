@@ -14,7 +14,8 @@ volatile uint8_t	accel_len;	// length counter
 /**
  * initialize accel SPI module
  */
-void accelInit(void) {
+void accelInit(void)
+{
 	// init spi
 	UCB1CTL1 = cACCEL_CTL1;
 	UCB1BRW  = cACCEL_BAUDRATE;
@@ -32,7 +33,8 @@ void accelInit(void) {
 /**
  * write to accelerometer
  */
-void accelWrite(uint8_t *data, uint8_t len) {
+void accelWrite(uint8_t *data, uint8_t len)
+{
 	// vars
 	accel_data	= data;
 	accel_len	= len;
@@ -57,9 +59,17 @@ void accelWrite(uint8_t *data, uint8_t len) {
 /**
  * read from accelerometer
  */
-void accelRead(uint8_t *data, uint8_t len) {
+void accelRead(uint8_t *data, uint8_t len)
+{
 }
 
+/**
+ * ISR to handle SPI communication with accelerometer using UCB1
+ */
+interrupt (USCI_B1_VECTOR) accelISR(void)
+{
+    /* Any normal C code */
+}
 
 /*
 static void _initModule(struct spi_module_init_t* mod_set) {
