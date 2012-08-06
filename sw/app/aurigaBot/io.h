@@ -23,8 +23,8 @@
 #define p1_MOUT1_2	BIT3
 #define p1_MOUT2_1	BIT4
 #define p1_MOUT2_2	BIT5
-#define p1_	GYINT1	BIT6
-#define p1_	GYINT2	BIT7
+#define p1_GYINT1	BIT6
+#define p1_GYINT2	BIT7
 
 
 /* - PORT2 ------------------ */
@@ -64,7 +64,7 @@
 #define p5_LED2		BIT1
 #define p5_LED1		BIT7
 
-#define LEDsOut	()	P5DIR |=  (p5_LED1|p5_LED2)
+#define LEDsOut()	P5DIR |=  (p5_LED1|p5_LED2)
 #define LEDsIn()	P5DIR &= ~(p5_LED1|p5_LED2)
 #define LEDsOff()	P5OUT |=  (p5_LED1|p5_LED2)
 #define LEDsOn()	P5OUT &= ~(p5_LED1|p5_LED2)

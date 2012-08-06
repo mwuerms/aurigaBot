@@ -24,6 +24,7 @@
 #include "queue.h"
 
 #include "accel.h"
+#include "gyro.h"
 #include "io.h"
 
 /* - Defines -------------------------------- */

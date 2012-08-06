@@ -78,6 +78,7 @@
  */
 
 #include "appGlobal.h"
+#include "leds.h"
 
 /* Constants required for hardware setup. */
 #define mainALL_BITS_OUTPUT		( ( unsigned char ) 0xff )
@@ -145,11 +146,9 @@ int main( void )
 	/* Setup the hardware ready for the demo. */
 	prvSetupHardware();
 
-	/* Start the standard demo application tasks. */
-//	vStartIntegerMathTasks( tskIDLE_PRIORITY );
+	/* start LED Test Task */
+	xTaskCreate( ledProc, "LED Test Task", configMINIMAL_STACK_SIZE, NULL, spiMODULE_TASK_PRIORITY, NULL );
 
-	/* Start the 'SPI Module' task which is defined in this file. */
-//	xTaskCreate( vSpiModule, "SPI UCB0", configMINIMAL_STACK_SIZE, (void*)(&spi_init), spiMODULE_TASK_PRIORITY, NULL );
 	/* Start the scheduler. */
 	vTaskStartScheduler();
 

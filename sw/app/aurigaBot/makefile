@@ -80,6 +80,8 @@ SOURCES = \
 main.c \
 accel.c \
 gyro.c \
+sensorInt.c\
+leds.c\
 $(SOURCE_PATH)/tasks.c \
 $(SOURCE_PATH)/list.c \
 $(SOURCE_PATH)/queue.c \

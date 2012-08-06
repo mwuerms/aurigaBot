@@ -15,7 +15,7 @@
 /**
  * ISR to handle interrupts from sensors (accel, gyro)
  */
-interrupt (PORT1_VECTOR) gyroISR(void)
+interrupt (PORT1_VECTOR) sensorISR(void)
 {
     if(P1IE & p1_ADINT1) {
     	if(P1IFG & p1_ADINT1) {
